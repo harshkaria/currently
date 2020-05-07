@@ -22,13 +22,14 @@ function populateDom(links) {
         var row = table.insertRow()
         // Create the columns
         var urlData = row.insertCell(0)
-        var captionData = row.insertCell(1)
         // Populate the url and cqption rows
-        var urlText = document.createTextNode(link["url"])
-        var captionText = document.createTextNode(link["caption"])
+        var urlText = link["url"]
+        var captionText = link["caption"]
+        var urlElement = document.createElement('a')
+        urlElement.setAttribute('href', urlText)
+        urlElement.innerHTML = captionText;
         // Add the text to the respective columns
-        urlData.appendChild(urlText)
-        captionData.appendChild(captionText)
+        urlData.appendChild(urlElement)
     })
 }
 
