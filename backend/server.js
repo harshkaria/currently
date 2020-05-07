@@ -41,10 +41,14 @@ mongoose.connect(dbUrl, {
     console.log('MongoDB Connected')
 })
 
-router.get('/', (req, res) => {
-    res.send('hello world')
+router.get('/', (req, res, next) => {
+    if(req.query["id"] === "hi")
+        next()
+    res.send('yo')
 })
-
+router.get('/', (req, res) => {
+    res.send('my name is harsh')
+})
 // Add the /links route
 router.route('/links')
         .get((req, res) => {
@@ -69,6 +73,17 @@ router.route('/links')
             })
 
         });
+        router.get('/user/:id', function (req, res, next) {
+            console.log('ID:', req.params.id)
+            next()
+          }, function (req, res, next) {
+            res.send('User Info')
+          })
+          
+          // handler for the /user/:id path, which prints the user ID
+          router.get('/user/:id', function (req, res, next) {
+            res.end(req.params.id)
+          })
 
 // Expose the /api route
 app.use('/api', router)
@@ -77,4 +92,4 @@ app.listen(port, function() {
     console.log(`listening on ${port}`)
 })
 
-module.exports = mongoose
+module.exports = mongoose, router
