@@ -1,0 +1,21 @@
+{
+
+    "description": "Broadcast. Now.",
+    "manifest_version": 2,
+    "name": "Currently",
+    "version": "1.0",
+   
+    "browser_action": {
+      "browser_style": true,
+      "default_popup": "popup/default.html",
+      "default_icon": {
+        "16": "icons/icon-16x16.png",
+        "32": "icons/icon-32x32.png"
+      }
+    },
+    "permissions": [
+        "tabs",
+        "<all_urls>"
+    ]
+  
+  }

@@ -42,3 +42,5 @@ function populateDom(links) {
     }).then((links) => {
         populateDom(links)
     })
+
+    
