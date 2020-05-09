@@ -17,9 +17,11 @@ function onError(err) {
 // When the submit button is clicked, we call this to grab the current tab
 function tabInfo() {
     console.log("clicked");
-    // Returns a prromise containing info about the current tab
+    // Returns a prromise containing info about the current tab, given the current parameters
     browser.tabs.query({active: true, windowId: browser.windows.WINDOW_ID_CURRENT})
+    // With the array of tabs, we want to access the top 
         .then(tabs => {
+            // Get the title and url property
             getTab(tabs[0].title, tabs[0].url)
         })
 }
