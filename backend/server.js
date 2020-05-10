@@ -65,6 +65,7 @@ router.route('/links')
             // we can use req.body because of req.body
             link.url = req.body.url;
             link.caption = req.body.caption;
+            link.title = req.body.title;
             // save to database
             link.save((err) => {
                 if(err)

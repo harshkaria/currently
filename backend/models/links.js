@@ -6,6 +6,7 @@ var Schema = mongoose.Schema
 
 var LinksSchema = new Schema({
     'url': String,
+    'title': String,
     'date': {type: Date, default: Date.now},
     'caption': String 
 })
