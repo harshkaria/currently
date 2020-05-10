@@ -28,7 +28,9 @@ function tabInfo() {
 // Gather URL, title, as well as caption
 function submitClicked() 
 {
-
+    var caption = doc.getElementById('caption').value
+    if(caption.length != 0) 
+        console.log(caption)
 }
 // Gets the document ready
 function populate() {
