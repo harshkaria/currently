@@ -23,10 +23,12 @@ function populateDom(links) {
         // Create the columns
         var urlData = row.insertCell(0)
         var captionData = row.insertCell(1)
+        var clickData = row.insertCell(2);
         // Populate the url and cqption rows
         var urlText = link["url"]
         var captionText = link["caption"]
         var titleText = link["title"]
+        var urlClicks = link["clicks"]
 
         var urlElement = document.createElement('a')
         // Title element
@@ -37,9 +39,12 @@ function populateDom(links) {
         urlElement.appendChild(titleElement);
         // Add the caption element
         var captionElement = document.createTextNode(captionText)
+        // Adds the click element
+        var clickElement = document.createTextNode(urlClicks)
         // Add the text to the respective columns
         urlData.appendChild(urlElement)
         captionData.appendChild(captionElement)
+        clickData.appendChild(clickElement)
 
     })
 }

@@ -8,7 +8,8 @@ var LinksSchema = new Schema({
     'url': String,
     'title': String,
     'date': {type: Date, default: Date.now},
-    'caption': String 
+    'caption': String,
+    'clicks': {type: Number, default: 0}
 })
 
 // Export

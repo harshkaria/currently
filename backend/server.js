@@ -36,7 +36,8 @@ app.use(function (req, res, next) {
 // Connect to our database
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 }).then(() => {
     console.log('MongoDB Connected')
 })
@@ -73,8 +74,24 @@ router.route('/links')
                 res.json({message: `Added link ${link}`})
             })
 
-        });
-        router.get('/user/:id', function (req, res, next) {
+        })
+        // If we want to send a put request, we need the link url and update the `click_count`
+        .put((req, res) => {
+            var url = req.body.url;
+            // Increment click count
+            Links.findOneAndUpdate({"url": url}, { 
+                // Increment click
+                $inc: {
+                    'clicks': 1
+                 }
+                },
+                (err, doc, res) => {
+                    if(err)
+                        res.send(res.json(err))
+                }).then(() =>  res.send(`Click updated for ${url}`))
+            });
+        
+    router.get('/user/:id', function (req, res, next) {
             console.log('ID:', req.params.id)
             next()
           }, function (req, res, next) {

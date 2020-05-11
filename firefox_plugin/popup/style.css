@@ -1,4 +1,9 @@
 body {
     height: absolute;
     width: 300px;
+    background-color: black;
+}
+#url-title {
+    color: rgb(102, 243, 84);
+    font-weight: bold;
 }
