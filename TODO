@@ -1,2 +1,7 @@
 // TODO:
 Unique click counter
+Polish frontend
+
+// Click counter architecture
+// When link clicked, check if cookie exists for that key (link), if so, do nothing
+// Else, add the cookie for the link and increment the cookie value in the database
