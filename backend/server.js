@@ -102,9 +102,12 @@ router.route('/links')
             apiCall.then((data, rej) => {
                 if(rej) 
                     res.json(rej)
-                else res.json(data);
+                else {
+                    res.json(data);
+                }
             });
         });
+        
         
 router.get('/user/:id', function (req, res, next) {
             console.log('ID:', req.params.id)
