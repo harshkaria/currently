@@ -1,7 +1,10 @@
 var doc = window.top.document
 var url = ''
 var title = ''
-var API_URL = 'https://currentlydeployment.herokuapp.com/api/links'
+const API_URL =  `http://localhost:3001/api/links`
+const debug = true;
+if(debug != true) 
+    API_URL = `https://currentlydeployment.herokuapp.com/api/links`
 function populateTabInfo(title, url) {
     // Grab the url element from the dom
     var urlElem = doc.getElementById("url-title")

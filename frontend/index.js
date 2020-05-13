@@ -3,8 +3,10 @@
 
 // TODO: add current day as parameter?
 'use strict';
-
-const API_URL = `https://currentlydeployment.herokuapp.com/api/links`
+const API_URL =  `http://localhost:3001/api/links`
+const debug = true;
+if(debug != true) 
+    API_URL = `https://currentlydeployment.herokuapp.com/api/links`
 
 // Returns a promise when complete
 async function grabData()
@@ -15,6 +17,37 @@ async function grabData()
     let data = await response.json();
     return data;
 }
+// Increments the click counter
+// TO-DO: save to cookies
+async function updateClick(url) {
+    //console.log(url)
+    // Call /api/link and JSON data
+    let response = await fetch(API_URL, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({"url": url})
+    });
+    // Wait for the result to be completed
+    let result = await response.json();
+    // Once result is populated, we return it
+    return result;
+}
+
+// Click function
+var clicked =  function(curr_url) {
+    const url = curr_url;
+    // Returns a function for onClick
+        console.log(`${url}`)
+        updateClick(url).then((res, rej) => {
+            if(rej) {
+                console.log(rej)
+            }
+            console.log(res);
+        });
+    }
+
 //Populates the table
 function populateDom(links) {
     // Grab the table from the html file
@@ -37,8 +70,12 @@ function populateDom(links) {
         var titleElement = document.createTextNode(titleText)
         // Add the url
         urlElement.setAttribute('href', urlText)
+        // New tab or window
+        urlElement.setAttribute('target', '_blank')
         // Add the title to be clickable
         urlElement.appendChild(titleElement);
+        // Add clicked URL
+        urlElement.addEventListener("click", clicked.bind(this, urlText));
         // Add the caption element
         var captionElement = document.createTextNode(captionText)
         // Adds the click element

@@ -79,7 +79,8 @@ router.route('/links')
         .put((req, res) => {
             var url = req.body.url;
             // Increment click count
-            Links.findOneAndUpdate({"url": url}, { 
+            let apiCall = function(doc) {
+                return Links.findOneAndUpdate({"url": url}, { 
                 // Increment click
                 $inc: {
                     'clicks': 1
@@ -88,10 +89,14 @@ router.route('/links')
                 (err, doc, res) => {
                     if(err)
                         res.send(res.json(err))
-                }).then(() =>  res.send(`Click updated for ${url}`))
-            });
+                    return doc
+                })
+            }
+            console.log(apiCall())
+            res.json('woo')
+        });
         
-    router.get('/user/:id', function (req, res, next) {
+router.get('/user/:id', function (req, res, next) {
             console.log('ID:', req.params.id)
             next()
           }, function (req, res, next) {
