@@ -4,7 +4,7 @@
 // TODO: add current day as parameter?
 'use strict';
 var API_URL =  `http://localhost:3001/api/links`
-const debug = false;
+const debug = true;
 if(debug != true) 
     API_URL = "https://currentlydeployment.herokuapp.com/api/links"
 

@@ -76,24 +76,34 @@ router.route('/links')
 
         })
         // If we want to send a put request, we need the link url and update the `click_count`
+        // Updates the click counte
         .put((req, res) => {
             var url = req.body.url;
-            // Increment click count
-            let apiCall = function(doc) {
-                return Links.findOneAndUpdate({"url": url}, { 
-                // Increment click
-                $inc: {
-                    'clicks': 1
-                 }
-                },
-                (err, doc, res) => {
-                    if(err)
-                        res.send(res.json(err))
-                    return doc
-                })
-            }
-            console.log(apiCall())
-            res.json('woo')
+                // Increment click count asynchronously
+                let apiCall = new Promise(function(resolve, reject) {
+                    Links.findOneAndUpdate({"url": url}, { 
+                    // Increment click
+                    $inc: {
+                        'clicks': 1
+                    }}, function (error, document, result) {
+                            // console.log(error, document, result)
+                            if(error) {
+                               // console.log(error);
+                               reject(error)
+                            }
+                            else {
+                                // console.log(document);
+                                resolve(document)
+                            }
+                        }
+                    );
+                });
+            // Execute the PUT API call aynchronously and return the updated document
+            apiCall.then((data, rej) => {
+                if(rej) 
+                    res.json(rej)
+                else res.json(data);
+            });
         });
         
 router.get('/user/:id', function (req, res, next) {
