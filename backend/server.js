@@ -4,7 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 //nA7KtT7TyJmgHwW
 const dbName = 'Currently'
-const dbUrl = `mongodb+srv://admin:nA7KtT7TyJmgHwW@cluster0-so4xi.mongodb.net/${dbName}?retryWrites=true&w=majority`
+const dbUrl = process.env.MONGOLAB_URI || `mongodb+srv://admin:nA7KtT7TyJmgHwW@cluster0-so4xi.mongodb.net/${dbName}?retryWrites=true&w=majority`
 const port = process.env.API_PORT || 3001;
 const router = express.Router();
 const Links = require('./models/links')
