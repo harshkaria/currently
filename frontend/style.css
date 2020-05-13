@@ -17,7 +17,7 @@ table, th, td {
     text-align: left; 
     color: white   
   }
-  #hi {
+  th {
       background-color: darkgreen;
   }
 
