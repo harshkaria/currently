@@ -3,6 +3,9 @@ body {
     width: 300px;
     background-color: black;
 }
+h3 {
+    color: white;
+}
 #url-title {
     color: rgb(102, 243, 84);
     font-weight: bold;

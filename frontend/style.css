@@ -1,7 +1,7 @@
 body {
     background-color: #000000;
 }
-h1, h2, h3 {
+h1, h2, h3, h4{
     color: white
 }
 a {
@@ -18,7 +18,7 @@ table, th, td {
     color: white   
   }
   #hi {
-      background-color: green;
+      background-color: darkgreen;
   }
 
   .footer {
