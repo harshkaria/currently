@@ -4,11 +4,13 @@
 // TODO: add current day as parameter?
 'use strict';
 
+const API_URL = `https://currentlydeployment.herokuapp.com/api/links`
+
 // Returns a promise when complete
 async function grabData()
 {
     // Calls the api and populates `response` when done
-    let response = await fetch(`http://localhost:3001/api/links`)
+    let response = await fetch(API_URL)
     // Waits for response to be populated and then converts it to JSON
     let data = await response.json();
     return data;
