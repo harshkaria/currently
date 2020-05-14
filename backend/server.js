@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
 // Add the /links route
 router.route('/links')
         .get((req, res) => {
-            Links.find((err, items) => {
+            Links.find({}).sort({"date": 'descending'}).exec((err, items) => {
                 if(err) 
                     res.send(err);
                 // Sends back the items 
