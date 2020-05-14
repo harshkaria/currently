@@ -1,0 +1,32 @@
+body {
+    background-color: #000000;
+}
+h1, h2, h3, h4{
+    color: white
+}
+a {
+    color: white
+}
+table, th, td {
+    border: 1px solid wheat;
+    border-collapse: collapse;
+    color: white
+  }
+  th, td {
+    padding-top: 20px;
+    text-align: left; 
+    color: white   
+  }
+  th {
+      background-color: darkgreen;
+  }
+
+  .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: darkgreen;
+      color: white;
+      text-align: center;
+  }
