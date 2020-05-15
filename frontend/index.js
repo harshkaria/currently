@@ -93,9 +93,7 @@ function populateDom(links) {
     if(rej) 
         return rej;
     //console.log(links)
-    return links
-    }).then((links) => {
-        populateDom(links)
-    })
+    populateDom(links)
+    });
 
     

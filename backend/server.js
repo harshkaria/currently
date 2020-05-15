@@ -76,7 +76,7 @@ router.route('/links')
 
         })
         // If we want to send a put request, we need the link url and update the `click_count`
-        // Updates the click counte
+        // Updates the click counter
         .put((req, res) => {
             var url = req.body.url;
                 // Increment click count asynchronously
