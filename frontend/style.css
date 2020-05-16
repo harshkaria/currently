@@ -36,6 +36,7 @@ a {
 
 a:hover {
 		text-decoration: underline;
+		
 	}
 /*main layout begins*/
 div#main-container { 
@@ -75,15 +76,24 @@ h1, h2, h3, h4{
 	width: 100%;
 	padding: 40px;
     border-bottom: 3px solid wheat;
-    margin-top: 4px;
-	-webkit-transition: all 200ms ease-in-out;
-	   -moz-transition: all 200ms ease-in-out;
-	     -o-transition: all 200ms ease-in-out;
-	        transition: all 200ms ease-in-out;
+	margin-top: 4px;
+	left: 0px;
+	-webkit-transition: all 400ms ease-in-out;
+	-moz-transition: all 400ms ease-in-out;
+	-o-transition: all 400ms ease-in-out;
+	transition: all 400ms ease-in-out;
+	cursor: pointer;
+}
+.link:hover {
+	-webkit-transform: scale(1.1);
+	   -moz-transform: scale(1.1);
+		 -o-transform: scale(1.1);
+			transform: scale(1.1);
 }
 
 .link-header {
-    margin-bottom: 10px;
+	margin-top: -1rem;
+    margin-bottom: 2px;
 }
 .link-header .title {
 	font-size: 16px;
@@ -91,6 +101,7 @@ h1, h2, h3, h4{
     font-weight: bold;
     
 }
+
 
 p.link-caption {
 	color: #f1f1f1;
