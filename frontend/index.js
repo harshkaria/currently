@@ -87,9 +87,8 @@ function populateDom(links) {
 
     })
 }
-
-    // Grabs the data and then populates the table
-    grabData().then((links, rej) => {
+ // Grabs the data and then populates the table
+ grabData().then((links, rej) => {
     if(rej) 
         return rej;
     //console.log(links)

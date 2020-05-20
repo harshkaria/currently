@@ -7,10 +7,15 @@ h1, h2, h3, h4{
 a {
     color: white
 }
-table, th, td {
+th, td {
     border: 1px solid wheat;
-    border-collapse: collapse;
-    color: white
+    border-collapse: separate;
+    color: white;
+    
+  }
+  table#linksTable {
+    overflow: auto;
+    display: flex;
   }
   th, td {
     padding-top: 20px;
@@ -22,11 +27,15 @@ table, th, td {
   }
 
   .footer {
-      position: fixed;
+      position: relative;
+      top: 0;
       left: 0;
       bottom: 0;
       width: 100%;
+      padding-top: 20px;
+      padding-bottom: 20px;
       background-color: darkgreen;
       color: white;
       text-align: center;
+      box-shadow: 0 50vh 0 50vh #000;
   }
