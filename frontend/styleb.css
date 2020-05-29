@@ -1,6 +1,9 @@
 body {
     background-color: #000000;
 }
+#main-containeer {
+    width: 100%;
+}
 h1, h2, h3, h4{
     color: white
 }
@@ -17,6 +20,9 @@ th, td {
     overflow: auto;
     display: flex;
   }
+  th {
+      text-align: center;
+  }
   th, td {
     padding-top: 20px;
     text-align: left; 
@@ -26,11 +32,9 @@ th, td {
       background-color: darkgreen;
   }
 
-  .footer {
+  footer {
       position: relative;
-      top: 0;
-      left: 0;
-      bottom: 0;
+      background: #000;
       width: 100%;
       padding-top: 20px;
       padding-bottom: 20px;

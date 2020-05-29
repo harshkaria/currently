@@ -42,14 +42,28 @@ mongoose.connect(dbUrl, {
     console.log('MongoDB Connected')
 })
 
-router.get('/', (req, res, next) => {
-    if(req.query["id"] === "hi")
+
+
+router.get('/:shortlink', (req, res, next) => {
+    console.log("shortlink called")
+    if(req.params["shortlink"] != null)
         next()
-    res.send('yo')
+    else {
+    }
+}, function(req, res, next) {
+    // Find the long url
+    Links.findOne({"short_link": req.params["shortlink"]}, (err, doc) => {
+       if(err) {
+           res.send(404);
+       }
+       else {
+           res.redirect(doc.url)
+       }
+    })
 })
-router.get('/', (req, res) => {
-    res.send('my name is harsh')
-})
+// Generate short link
+
+
 // Add the /links route
 router.route('/links')
         .get((req, res) => {
@@ -61,17 +75,22 @@ router.route('/links')
             })
         })
         .post((req, res) => {
-            // New link
+            console.log("testing link addition");
+            // New link, creates an instance of the document
             var link = new Links();
             // we can use req.body because of req.body
             link.url = req.body.url;
             link.caption = req.body.caption;
             link.title = req.body.title;
             // save to database
-            link.save((err) => {
-                if(err)
-                    res.send(err)
-                res.json({message: `Added link ${link}`})
+            link.save((err, document) => {
+                if(err) {
+                    res.send(err) 
+                    console.log(err);
+                }
+                else {
+                    res.json({message: `Added link ${link}`})
+                }
             })
 
         })
@@ -107,19 +126,25 @@ router.route('/links')
                 }
             });
         });
+
+
         
         
-router.get('/user/:id', function (req, res, next) {
-            console.log('ID:', req.params.id)
-            next()
-          }, function (req, res, next) {
-            res.send('User Info')
-          })
-          
-          // handler for the /user/:id path, which prints the user ID
-          router.get('/user/:id', function (req, res, next) {
-            res.end(req.params.id)
-          })
+function logOriginalUrl (req, res, next) {
+    console.log('Request URL:', req.originalUrl)
+    next()
+  }
+  
+  function logMethod (req, res, next) {
+    console.log('Request Type:', req.method)
+    next()
+  }
+  
+  var logStuff = [logOriginalUrl, logMethod]
+  router.get('/user/:id', logStuff, function (req, res, next) {
+    res.send('User Info')
+  })
+  
 
 // Expose the /api route
 app.use('/api', router)

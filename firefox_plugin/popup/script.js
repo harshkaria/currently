@@ -2,7 +2,7 @@ var doc = window.top.document
 var url = ''
 var title = ''
 var API_URL =  `http://localhost:3001/api/links`
-var debug = false;
+var debug = true;
 if(debug != true) 
     API_URL = `https://currentlydeployment.herokuapp.com/api/links`
 function populateTabInfo(title, url) {
