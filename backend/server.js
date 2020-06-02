@@ -75,7 +75,6 @@ router.route('/links')
             })
         })
         .post((req, res) => {
-            console.log("testing link addition");
             // New link, creates an instance of the document
             var link = new Links();
             // we can use req.body because of req.body
