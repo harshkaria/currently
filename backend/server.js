@@ -42,8 +42,6 @@ mongoose.connect(dbUrl, {
     console.log('MongoDB Connected')
 })
 
-
-
 router.get('/sl/:shortlink?', (req, res, next) => {
     //console.log("shortlink called")
     if(req.params["shortlink"] != null)
@@ -53,15 +51,36 @@ router.get('/sl/:shortlink?', (req, res, next) => {
     }
 }, function(req, res, next) {
     // Find the long url
-    Links.findOne({"short_link": req.params["shortlink"]}, (err, doc) => {
-       if(err || doc == null) {
-           res.redirect("http://harshkaria.com");
-       }
-       else {
-           res.redirect(doc.url)
-       }
-    })
-})
+    let url = req.params["shortlink"];
+    // Update the click count 
+    let apiCall = new Promise(function(resolve, reject) {
+            Links.findOneAndUpdate({"short_link": url}, { 
+            // Increment click, updating..
+            $inc: {
+                'clicks': 1
+            }}, function (error, document, result) {
+                    // console.log(error, document, result)
+                    if(error) {
+                       // console.log(error);
+                       reject(error)
+                    }
+                    else {
+                        // console.log(document);
+                        resolve(document)
+                    }
+                }
+            );
+        });
+        // Execute the PUT API call aynchronously and return the updated document from the promise
+        apiCall.then((data, rej) => {
+            if(rej) 
+                res.json(rej)
+            else {
+                // Redirect upon success
+                res.redirect(data.url)
+            }
+        });
+});
 
 // Add the /links route
 router.route('/links')

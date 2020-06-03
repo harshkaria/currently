@@ -13,4 +13,5 @@ h3 {
 #shortUrl {
     color: rgb(102, 243, 84);
     font-weight: bold;
+    user-select: all;
 }

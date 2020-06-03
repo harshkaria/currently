@@ -38,7 +38,10 @@ async function updateClick(url) {
 // Click function
 var clicked =  function(curr_url) {
     const url = curr_url;
-    // Returns a function for onClick
+    if(url.indexOf('http://harshkaria.com') >= 0) {
+        return;
+    }
+    else {
         console.log(`${url}`)
         updateClick(url).then((res, rej) => {
             if(rej) {
@@ -47,6 +50,7 @@ var clicked =  function(curr_url) {
             console.log(res);
         });
     }
+}
 
 //Populates the table
 function populateDom(links) {
@@ -59,8 +63,8 @@ function populateDom(links) {
         var urlData = row.insertCell(0)
         var captionData = row.insertCell(1)
         var clickData = row.insertCell(2);
-        // Populate the url and cqption rows
-        var urlText = link["url"]
+        // Populate the url and caption rows
+        var urlText = (link["short_link"] === undefined ? link['url'] : `http://harshkaria.com/` + link['short_link']); 
         var captionText = link["caption"]
         var titleText = link["title"]
         var urlClicks = link["clicks"]
