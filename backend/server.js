@@ -53,7 +53,7 @@ router.get('/sl/:shortlink?', (req, res, next) => {
     }
 }, function(req, res, next) {
     // Find the long url
-    Links.findOne({"short_link": req.params["shortlink"]}, (err,  doc) => {
+    Links.findOne({"short_link": req.params["shortlink"]}, (err, doc) => {
        if(err || doc == null) {
            res.redirect("http://harshkaria.com");
        }
@@ -87,7 +87,7 @@ router.route('/links')
                     console.log(err);
                 }
                 else {
-                    res.json({message: `Added link ${link}`})
+                    res.json({shortURL: document.short_link})
                 }
             })
 

@@ -1,6 +1,5 @@
 // TODO:
 Polish frontend
-
-// Click counter architecture
-// When link clicked, check if cookie exists for that key (link), if so, do nothing 
-// Else, add the cookie and make API call
+- Display success label on firefox client as well as short URL
+- Update click count on redirect contact
+- Check type of counter.count and understand base 64 logic

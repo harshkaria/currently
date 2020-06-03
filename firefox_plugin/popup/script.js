@@ -2,7 +2,7 @@ var doc = window.top.document
 var url = ''
 var title = ''
 var API_URL =  `http://localhost:3001/api/links`
-var debug = true;
+var debug = false;
 if(debug != true) 
     API_URL = `https://currentlydeployment.herokuapp.com/api/links`
 function populateTabInfo(title, url) {
@@ -38,7 +38,8 @@ function tabInfo() {
 // Gather URL, title, as well as caption
 function submitClicked() 
 {
-    var caption = doc.getElementById('caption')
+    var shortUrlNode = doc.getElementById('shortUrl')
+    var shortUrlText = "";
     if(caption.length != 0 && url != "about:newtab") {
         // Make API call here
         // Data object to send in POST call
@@ -53,9 +54,11 @@ function submitClicked()
                 console.err(rej)
             }
             console.log(res);
+            shortUrlText = document.createTextNode("http://harshkaria.com/" + res.shortURL)
+                // Display URL
+            shortUrlNode.innerHTML = '<br/>'
+            shortUrlNode.appendChild(shortUrlText)
         })
-        // Clear textarea 
-        caption.innerHTML += '<b> hi </b>'
     }
 }
 // POST a link
