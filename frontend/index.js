@@ -87,6 +87,12 @@ function populateDom(links) {
 
     })
 }
+
+function grabUrl() {
+    console.log(window.location.href)
+
+}
+
  // Grabs the data and then populates the table
  grabData().then((links, rej) => {
     if(rej) 

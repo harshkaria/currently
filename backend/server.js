@@ -44,11 +44,12 @@ mongoose.connect(dbUrl, {
 
 
 
-router.get('/:shortlink', (req, res, next) => {
-    console.log("shortlink called")
+router.get('/sl/:shortlink', (req, res, next) => {
+    //console.log("shortlink called")
     if(req.params["shortlink"] != null)
         next()
     else {
+        res.send(404);
     }
 }, function(req, res, next) {
     // Find the long url
@@ -61,8 +62,6 @@ router.get('/:shortlink', (req, res, next) => {
        }
     })
 })
-// Generate short link
-
 
 // Add the /links route
 router.route('/links')
