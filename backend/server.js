@@ -49,13 +49,13 @@ router.get('/sl/:shortlink', (req, res, next) => {
     if(req.params["shortlink"] != null)
         next()
     else {
-        res.send(404);
+        
     }
 }, function(req, res, next) {
     // Find the long url
     Links.findOne({"short_link": req.params["shortlink"]}, (err, doc) => {
        if(err) {
-        res.redirect('https://harshkaria.com')
+           res.send("http://harshkaria.com");
        }
        else {
            res.redirect(doc.url)
