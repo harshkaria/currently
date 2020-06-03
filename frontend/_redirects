@@ -1,3 +1,5 @@
 # Redirect Rules for Currently
 
+https://harshkaria.com/ https://harshkaria.com 301
+
 https://harshkaria.com/* https://currentlydeployment.herokuapp.com/api/sl/:splat 301
