@@ -55,7 +55,7 @@ router.get('/sl/:shortlink', (req, res, next) => {
     // Find the long url
     Links.findOne({"short_link": req.params["shortlink"]}, (err, doc) => {
        if(err) {
-           res.send(404);
+        res.redirect('https://harshkaria.com')
        }
        else {
            res.redirect(doc.url)
