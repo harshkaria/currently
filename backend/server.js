@@ -44,7 +44,7 @@ mongoose.connect(dbUrl, {
 
 
 
-router.get('/sl/:shortlink', (req, res, next) => {
+router.get('/sl/:shortlink?', (req, res, next) => {
     //console.log("shortlink called")
     if(req.params["shortlink"] != null)
         next()
