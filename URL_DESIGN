@@ -1,3 +1,0 @@
-1) Generate a Base 64 hash base on counter
-2) Encode on save and store in db - done []
-3) Look for 'shortUrl' in db when iterating 
