@@ -1,5 +1,5 @@
 // TODO:
 Polish frontend
-- Display success label on firefox client as well as short URL
-- Update click count on redirect contact
-- Check type of counter.count and understand base 64 logic
+- Add a before going to ?=message = true and display the message for 10 seconds before redirecting
+- BERT for classification of headlines
+

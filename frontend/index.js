@@ -38,6 +38,7 @@ async function updateClick(url) {
 // Click function
 var clicked =  function(curr_url) {
     const url = curr_url;
+    // We don't want redundant API calls
     if(url.indexOf('http://harshkaria.com') >= 0) {
         return;
     }
