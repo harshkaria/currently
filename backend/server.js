@@ -44,7 +44,7 @@ mongoose.connect(dbUrl, {
 })
 
 router.get('/twilio', (req, res) => {
-    var twiml = new twilio.TwilmlResponse()
+    var twiml = new twilio.twiml.MessagingResponse();
     twiml.message(`${req.body.Body} was sent`)
     res.writeHead(200, {'Content_Type': 'text/xml'})
     res.end(twiml.toString())
