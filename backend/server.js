@@ -15,6 +15,20 @@ const Links = require('./models/links')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
+// TwilioState 
+var TwilioState = {
+    url: null,
+    caption: null
+}
+
+// Helper functions=
+// https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+function isValidURL(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+  };
+
+
 // Add headers for CORS
 app.use(function (req, res, next) {
 
@@ -46,10 +60,19 @@ mongoose.connect(dbUrl, {
 
 router.post('/twilio', (req, res) => {
     var twiml = new MessagingResponse();
-    twiml.message(`${req.body.Body} was sent`)
-    console.log(`${req.body.Body} was sent`)
-    res.writeHead(200, {'Content-Type': 'text/xml'})
-    res.end(twiml.toString())
+    if(TwilioState.url == null && isValidURL(req.body.Body)) {
+        TwilioState.url = req.body.Body
+    }
+    if(TwilioState.url != null) {
+        TwilioState.caption = req.body.Body
+        twiml.message(`${TwilioState.url} and ${TwilioState.caption} was sent`)
+        console.log(`${TwilioState.url} and ${TwilioState.caption} was sent`)
+        // Clear the state
+        TwilioState.url = null
+        TwilioState.caption = null
+        res.writeHead(200, {'Content-Type': 'text/xml'})
+        res.end(twiml.toString())
+    }
 })
 
 router.get('/sl/:shortlink?', (req, res, next) => {
