@@ -60,10 +60,6 @@ mongoose.connect(dbUrl, {
 
 router.post('/twilio', (req, res) => {
     var twiml = new MessagingResponse();
-    if(TwilioState.url == null && isValidURL(req.body.Body)) {
-        TwilioState.url = req.body.Body
-        res.end()
-    }
     if(TwilioState.url != null) {
         TwilioState.caption = req.body.Body
         twiml.message(`${TwilioState.url} and ${TwilioState.caption} was sent`)
@@ -73,6 +69,11 @@ router.post('/twilio', (req, res) => {
         TwilioState.caption = null
         res.writeHead(200, {'Content-Type': 'text/xml'})
         res.end(twiml.toString())
+    }
+    if(TwilioState.url == null && isValidURL(req.body.Body)) {
+        TwilioState.url = req.body.Body
+        console.log(TwilioState.url)
+        res.end()
     }
 })
 
