@@ -62,6 +62,7 @@ router.post('/twilio', (req, res) => {
     var twiml = new MessagingResponse();
     if(TwilioState.url == null && isValidURL(req.body.Body)) {
         TwilioState.url = req.body.Body
+        res.end()
     }
     if(TwilioState.url != null) {
         TwilioState.caption = req.body.Body
