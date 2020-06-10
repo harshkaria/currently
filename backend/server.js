@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const mongoose = require('mongoose')
 const twilio = require('twilio')
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 //nA7KtT7TyJmgHwW
 const dbName = 'Currently'
 const dbUrl = process.env.MONGOLAB_URI || `mongodb+srv://admin:nA7KtT7TyJmgHwW@cluster0-so4xi.mongodb.net/${dbName}?retryWrites=true&w=majority`
@@ -43,11 +44,11 @@ mongoose.connect(dbUrl, {
     console.log('MongoDB Connected')
 })
 
-router.get('/twilio', (req, res) => {
-    var twiml = new twilio.twiml.MessagingResponse();
+router.post('/twilio', (req, res) => {
+    var twiml = new MessagingResponse();
     twiml.message(`${req.body.Body} was sent`)
     console.log(`${req.body.Body} was sent`)
-    res.writeHead(200, {'Content_Type': 'text/xml'})
+    res.writeHead(200, {'Content-Type': 'text/xml'})
     res.end(twiml.toString())
 })
 
