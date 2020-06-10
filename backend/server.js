@@ -28,6 +28,9 @@ function isValidURL(string) {
     return (res !== null)
   };
 
+var postLink = function(link, callback) {
+    // Posts a new link into the database and returns the [err, document] in the callback
+}
 
 // Add headers for CORS
 app.use(function (req, res, next) {
@@ -57,6 +60,9 @@ mongoose.connect(dbUrl, {
 }).then(() => {
     console.log('MongoDB Connected')
 })
+
+
+
 
 router.post('/twilio', (req, res) => {
     var twiml = new MessagingResponse();
