@@ -60,6 +60,7 @@ mongoose.connect(dbUrl, {
 
 router.post('/twilio', (req, res) => {
     var twiml = new MessagingResponse();
+    console.log('Message: ', req.body.Body);
     if(TwilioState.url != null) {
         TwilioState.caption = req.body.Body
         twiml.message(`${TwilioState.url} and ${TwilioState.caption} was sent`)
