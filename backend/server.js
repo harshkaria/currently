@@ -10,6 +10,7 @@ const dbUrl = process.env.MONGOLAB_URI || `mongodb+srv://admin:nA7KtT7TyJmgHwW@c
 const port = process.env.PORT || 3001;
 const router = express.Router();
 const Links = require('./models/links')
+var titleGrab = require('get-title-at-url')
 
 // Init bodyParser
 app.use(bodyParser.urlencoded({extended: true}))
@@ -28,8 +29,41 @@ function isValidURL(string) {
     return (res !== null)
   };
 
-var postLink = function(link, callback) {
-    // Posts a new link into the database and returns the [err, document] in the callback
+// Makes a web request taking in a url as a parameter 
+// returns a promise of the title of the web page
+var getTitleFromTwilioMessage = function(link) {
+    return new Promise(function (resolve, reject) {
+        titleGrab(link, (title, err) => {
+            if(!err) {
+                resolve(title);
+            }
+            else {
+                reject(err);
+            }
+        });
+    });
+}
+
+// Posts a link to the server
+// Callback returns: [shortlink, err]
+var postLinkToServer = function(linkObject, callback) {
+    var link = new Links();
+    // we can use req.body because of req.body
+    link.url = linkObject.url;
+    link.caption = linkObject.caption;
+    link.title = linkObject.title;
+    // save to database
+    link.save((err, document) => {
+        if(err) {
+            callback(null, err)
+            console.log(err);
+        }
+        else {
+            // Return shorturl in callback
+            callback(document.short_link, null)
+            //res.json({shortURL: document.short_link})
+        }
+    })
 }
 
 // Add headers for CORS
@@ -61,26 +95,34 @@ mongoose.connect(dbUrl, {
     console.log('MongoDB Connected')
 })
 
-
-
-
 router.post('/twilio', (req, res) => {
     var twiml = new MessagingResponse();
-    console.log('Message: ', req.body.Body);
     if(TwilioState.url != null) {
         TwilioState.caption = req.body.Body
-        twiml.message(`${TwilioState.url} and ${TwilioState.caption} was sent`)
-        console.log(`${TwilioState.url} and ${TwilioState.caption} was sent`)
-        // Clear the state
-        TwilioState.url = null
-        TwilioState.caption = null
-        res.writeHead(200, {'Content-Type': 'text/xml'})
-        res.end(twiml.toString())
+        // form Link Object 
+        var linkObject = {
+            url: TwilioState.url,
+            caption: TwilioState.caption,
+            title: TwilioState.title,
+        }
+        postLinkToServer(linkObject, (shortURL, err) => {
+            twiml.message(`http://harshkaria.com/${shortURL} and ${TwilioState.caption} was sent`)
+            console.log(`${TwilioState.url} and ${TwilioState.caption} was sent`)
+            // Clear the state
+            TwilioState.url = null
+            TwilioState.caption = null
+            TwilioState.title = null;
+            res.writeHead(200, {'Content-Type': 'text/xml'})
+            res.end(twiml.toString())
+        })
     }
     if(TwilioState.url == null && isValidURL(req.body.Body)) {
         TwilioState.url = req.body.Body
-        console.log(TwilioState.url)
-        res.end()
+        getTitleFromTwilioMessage(TwilioState.url).then((title, rej) => {
+            if(!rej)
+                TwilioState.title = title;
+            res.end()
+        })
     }
 })
 
@@ -135,24 +177,23 @@ router.route('/links')
             })
         })
         .post((req, res) => {
-            // New link, creates an instance of the document
-            var link = new Links();
+            // New link
+            var link = {};
             // we can use req.body because of req.body
             link.url = req.body.url;
             link.caption = req.body.caption;
             link.title = req.body.title;
             // save to database
-            link.save((err, document) => {
-                if(err) {
-                    res.send(err) 
-                    console.log(err);
-                }
-                else {
-                    res.json({shortURL: document.short_link})
-                }
+            postLinkToServer(link, (shortlink, err) => {
+                    if(err != null) {
+                        res.send(err) 
+                        console.log(err);
+                    }
+                    else {
+                        res.json({shortURL: shortlink})
+                    }
+                })
             })
-
-        })
         // If we want to send a put request, we need the link url and update the `click_count`
         // Updates the click counter
         .put((req, res) => {
