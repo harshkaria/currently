@@ -96,7 +96,8 @@ mongoose.connect(dbUrl, {
 })
 
 router.post('/twilio', (req, res) => {
-    var twiml = new MessagingResponse();
+    var twiml = new MessagingResponse()
+    // Apple ShareSheet will send two consecutive messages, so we have to get the second one and parse
     if(TwilioState.url != null) {
         TwilioState.caption = req.body.Body
         // form Link Object 
