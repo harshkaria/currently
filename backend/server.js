@@ -129,6 +129,8 @@ router.post('/twilio', (req, res) => {
                 twiml.message(`Something went wrong!`)
                 console.log('Error in finding title')
                 TwilioState.url = null;
+                TwilioState.caption = null;
+                TwilioState.title = null;
                 res.writeHead(200, {'Content-Type': 'text/xml'})
                 res.end(twiml.toString())   
             }
