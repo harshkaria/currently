@@ -19,7 +19,8 @@ app.use(bodyParser.json())
 // TwilioState 
 var TwilioState = {
     url: null,
-    caption: null
+    caption: null,
+    title: null,
 }
 
 // Helper functions=
@@ -117,7 +118,7 @@ router.post('/twilio', (req, res) => {
             res.end(twiml.toString())
         })
     }
-    if(TwilioState.url == null && isValidURL(req.body.Body)) {
+    else if(TwilioState.url == null && isValidURL(req.body.Body)) {
         TwilioState.url = req.body.Body
         getTitleFromTwilioMessage(TwilioState.url).then((title, rej) => {
             if(!rej) {
@@ -126,6 +127,7 @@ router.post('/twilio', (req, res) => {
             }
             else {
                 twiml.message(`Something went wrong!`)
+                console.log('Error in finding title')
                 TwilioState.url = null;
                 res.writeHead(200, {'Content-Type': 'text/xml'})
                 res.end(twiml.toString())   
