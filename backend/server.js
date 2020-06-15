@@ -120,9 +120,16 @@ router.post('/twilio', (req, res) => {
     if(TwilioState.url == null && isValidURL(req.body.Body)) {
         TwilioState.url = req.body.Body
         getTitleFromTwilioMessage(TwilioState.url).then((title, rej) => {
-            if(!rej)
+            if(!rej) {
                 TwilioState.title = title;
-            res.end()
+                res.end();
+            }
+            else {
+                twiml.message(`Something went wrong!`)
+                TwilioState.url = null;
+                res.writeHead(200, {'Content-Type': 'text/xml'})
+                res.end(twiml.toString())   
+            }
         })
     }
 })

@@ -26,6 +26,8 @@ var UsersSchema = new Schema({
         type: Date,
         default: Date.now()
     }
+
+    // TODO: One to many relationship between user -> link 
 })
 
 module.exports = mongoose.model("Users", UsersSchema)
