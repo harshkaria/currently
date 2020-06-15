@@ -5,11 +5,27 @@ var Schema = mongoose.Schema
 
 
 var UsersSchema = new Schema({
-    'id': Number,
-    'username': String,
-    'email': String,
-    'password': String,
-    'date_joined': Date
+    'name': {
+        type: String,
+        required: true
+    },
+    'handle': {
+     type: String, 
+     required: true
+    },
+    'email': {
+        type: String, 
+        required: true
+    },
+    'password': {
+        type: String, 
+        required: true
+           
+    },
+    'date_joined': {
+        type: Date,
+        default: Date.now()
+    }
 })
 
 module.exports = mongoose.model("Users", UsersSchema)
