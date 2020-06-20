@@ -10,6 +10,7 @@ const dbUrl = process.env.MONGOLAB_URI || `mongodb+srv://admin:nA7KtT7TyJmgHwW@c
 const port = process.env.PORT || 3001;
 const router = express.Router();
 const Links = require('./models/links')
+const UserRouter = require('./routes/userRoutes')
 var titleGrab = require('get-title-at-url')
 
 // Init bodyParser
@@ -260,9 +261,10 @@ function logOriginalUrl (req, res, next) {
 
 // Expose the /api route
 app.use('/api', router)
+app.use('/api/auth', UserRouter)
 
 app.listen(port, function() {
     console.log(`listening on ${port}`)
 })
 
-module.exports = mongoose, router
+module.exports = mongoose, router 
