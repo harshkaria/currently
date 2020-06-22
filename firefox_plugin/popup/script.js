@@ -23,6 +23,9 @@ function populateTabInfo(title, url) {
 function onError(err) {
     console.err(`Error: ${err}`)
 }
+function populateError() {
+    
+}
 
 // When the submit button is clicked, we call this to grab the current tab
 function tabInfo() {

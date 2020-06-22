@@ -92,7 +92,8 @@ app.use(function (req, res, next) {
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
 }).then(() => {
     console.log('MongoDB Connected')
 })
